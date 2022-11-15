@@ -41,6 +41,6 @@ export XDG_SESSION_TYPE="x11 exec dbus-run-session startplasma-x11"
 
 # Load ; should be last.
 source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
-source ~/.zsh/zsh-autosuggestionzs/zsh-autosuggestions.zsh 2>/dev/null
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 source /usr/share/autojump/autojump.zsh 2>/dev/null
