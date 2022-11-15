@@ -218,4 +218,4 @@ rm -rf ~/Downloads/*
 # >>>>> Enabling Services and Graphical User Interface
 chsh -s $(which zsh)
 
-
+reboot
