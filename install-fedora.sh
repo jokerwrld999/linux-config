@@ -5,7 +5,7 @@
 GITFOLDER=$(pwd)
 DOTCONFIG=~/.config
 SHARE=~/.local/share
-PACKS="wget gh nano flameshot google-chrome-stable discord telegram-desktop code latte-dock unzip gimp vim zip tree python-pip neofetch gparted google-chrome-stable easyeffects zsh"
+PACKS="wget gh nano flameshot tldr google-chrome-stable discord telegram-desktop code latte-dock unzip gimp vim zip tree python-pip neofetch gparted google-chrome-stable easyeffects zsh"
 
 
 echo -ne "
@@ -13,20 +13,23 @@ echo -ne "
                     Updating System  
 -------------------------------------------------------------------------
 "
-sudo dnf update -y
-sudo dnf install fedora-workstation-repositories
+sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf install -y https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf install -y fedora-workstation-repositories
 sudo dnf config-manager --set-enabled google-chrome
+sudo dnf update -y
 
 
 echo -ne "
 -------------------------------------------------------------------------
                     Copying Backup Data  
 -------------------------------------------------------------------------
-" 
+"
+sudo chmod 777 $GITFOLDER
+sudo chown -R $(whoami): $GITFOLDER
 yes | sudo cp -ri $GITFOLDER/dotconfig/* $DOTCONFIG/
 yes | sudo cp -ri $GITFOLDER/res/wallpapers  $SHARE/
 yes | sudo cp -ri $GITFOLDER/res/fonts $SHARE/
-sudo chown -R $(whoami): $DOTCONFIG/ $SHARE/
 
 # *** Reloading Font
 fc-cache -vf
@@ -37,7 +40,7 @@ echo -ne "
                     Adding Vs Code Repository  
 -------------------------------------------------------------------------
 "
-rpm --import https://packages.microsoft.com/keys/microsoft.asc
+sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
 sudo dnf check-update
@@ -47,7 +50,7 @@ echo -ne "
                     Installing Essential Packages  
 -------------------------------------------------------------------------
 " 
-sudo dnf install $PACKS -y
+sudo dnf install -y $PACKS
 
 
 echo -ne "
@@ -55,7 +58,7 @@ echo -ne "
                     Installing Snap Store  
 -------------------------------------------------------------------------
 " 
-sudo dnf install snapd -y
+sudo dnf install -y snapd
 sudo ln -s /var/lib/snapd/snap /snap
 sudo snap install haruna --candidate
 
@@ -65,7 +68,7 @@ echo -ne "
                     Installing KDE Related Packages  
 -------------------------------------------------------------------------
 "
-sudo dnf group install "KDE Plasma Workspaces" 
+sudo dnf group install -y "KDE Plasma Workspaces" 
 
 
 echo -ne "
