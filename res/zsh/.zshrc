@@ -10,7 +10,6 @@ ZSH_HIGHLIGHT_STYLES[suffix-alias]=fg=cyan,underline
 ZSH_HIGHLIGHT_STYLES[precommand]=fg=cyan,underline
 ZSH_HIGHLIGHT_STYLES[arg0]=fg=cyan
 
-
 # Custom Variables
 EDITOR=nano
 
@@ -30,6 +29,8 @@ _comp_options+=(globdots)               # Include hidden files.
 # Custom ZSH Binds
 bindkey '^ ' autosuggest-accept
 bindkey -e
+bindkey '^H' backward-kill-word
+bindkey '5~' kill-word
 
 # Load aliases and shortcuts if existent.
 [ -f "$HOME/.zsh/aliasrc" ] && source "$HOME/.zsh/aliasrc"
