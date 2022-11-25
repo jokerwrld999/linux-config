@@ -1,158 +1,240 @@
 #!/bin/bash
 
+
 # >>>>> Global Variables
-GITFOLDER=~/Desktop/linux-automate
+GITFOLDER=$(pwd)
+DOWNLOADS=~/Downloads
 DOTCONFIG=~/.config
 SHARE=~/.local/share
+PACKS="wget gh nano flameshot remmina tldr discord telegram-desktop code latte-dock unzip gimp vim zip tree python-pip neofetch gparted easyeffects zsh"
 
 
-# >>>>> Updating System && Installing apt
-#echo "deb https://deb.volian.org/volian/ scar main" | tee /etc/apt/sources.list.d/volian-archive-scar-unstable.list
-#wget -qO - https://deb.volian.org/volian/scar.key | tee /etc/apt/trusted.gpg.d/volian-archive-scar-unstable.gpg > /dev/null
-sudo apt update
+echo -ne "
+-------------------------------------------------------------------------
+                    Updating System  
+-------------------------------------------------------------------------
+"
+sudo apt install -y nala
+sudo nala update && sudo nala upgrade -y
 
 
-# >>>>> Copying Backup Data
-sudo cp -r $GITFOLDER/dotconfig/* $DOTCONFIG/
-sudo cp -r $GITFOLDER/res/wallpapers  $SHARE/
-sudo cp -r $GITFOLDER/res/fonts $SHARE/
-sudo chown -R $(whoami): $DOTCONFIG/ $SHARE/
+echo -ne "
+-------------------------------------------------------------------------
+                    Copying Backup Data  
+-------------------------------------------------------------------------
+"
+sudo chmod -R 755 $GITFOLDER
+sudo chown -R $USER:$USER $GITFOLDER
+yes | sudo cp -ri $GITFOLDER/dotconfig/* $DOTCONFIG/
+yes | sudo cp -ri $GITFOLDER/resources/wallpapers  $SHARE/
+yes | sudo cp -ri $GITFOLDER/resources/fonts $SHARE/
 
 # *** Reloading Font
 fc-cache -vf
 
 
-# >>>>> Installing Essential Programs 
-yes | sudo apt install wget git flameshot unzip gimp vim zip tree python-pip neofetch gparted zsh
-
-# *** Installing VS Code
-yes | apt install software-properties-common apt-transport-https
-wget -O- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | tee $SHARE/keyrings/vscode.gpg
-echo deb [arch=amd64 signed-by=$SHARE/keyrings/vscode.gpg] https://packages.microsoft.com/repos/vscode stable main | tee /etc/apt/sources.list.d/vscode.list
-yes | sudo apt install code
-
-# *** Installing Chrome on Debian
-cd ~/Downloads/
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-yes | sudo apt install ./google-chrome-stable_current_amd64.deb
+echo -ne "
+-------------------------------------------------------------------------
+                    Adding Chrome To The Repository  
+-------------------------------------------------------------------------
+"
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -P $DOWNLOADS/
+sudo apt install -y $DOWNLOADS/google-chrome-stable_current_amd64.deb
 
 
-# Customizing KDE Plasma
-# >>>>> Installing KWin Scripts
+echo -ne "
+-------------------------------------------------------------------------
+                    Adding Vs Code Repository  
+-------------------------------------------------------------------------
+"
+sudo apt-get install -y wget gpg
+wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
+sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+rm -f packages.microsoft.gpg
+
+echo -ne "
+-------------------------------------------------------------------------
+                    Installing Essential Packages  
+-------------------------------------------------------------------------
+" 
+sudo nala install -y apt-transport-https
+sudo nala update -y
+sudo nala install -y $PACKS
+
+
+echo -ne "
+-------------------------------------------------------------------------
+                    Installing Snap Store  
+-------------------------------------------------------------------------
+" 
+sudo nala install -y snapd
+sudo snap install core
+sudo snap install haruna --candidate
+
+
+echo -ne "
+-------------------------------------------------------------------------
+                    Installing KDE Related Packages  
+-------------------------------------------------------------------------
+"
+sudo nala install -y kde-standard 
+
+
+echo -ne "
+-------------------------------------------------------------------------
+                    KWin Scripts  
+-------------------------------------------------------------------------
+" 
 # *** Force Blur
-git clone https://github.com/esjeon/kwin-forceblur.git ~/Downloads/kwin-forceblur
-cd ~/Downloads/kwin-forceblur/
+git clone https://github.com/esjeon/kwin-forceblur.git $DOWNLOADS/kwin-forceblur
+cd $DOWNLOADS/kwin-forceblur/
 sudo ./pack.sh
 ./install.sh
 
 # *** Latte Windows
-git clone https://github.com/psifidotos/kwinscript-window-colors.git ~/Downloads/kwinscript-window-colors
-cd ~/Downloads/kwinscript-window-colors
+git clone https://github.com/psifidotos/kwinscript-window-colors.git $DOWNLOADS/kwinscript-window-colors
+cd $DOWNLOADS/kwinscript-window-colors
 plasmapkg2 -i .
 
 
-# >>>>> Installing Theme, Icons, Fonts, Cursors // Configure Kvantum Theme && SDDM
-yes | sudo apt install gtk-engine-murrine sassc kvantum
+echo -ne "
+-------------------------------------------------------------------------
+                    Installing Theme, Icons, Fonts, Cursors
+                       Configure Kvantum Theme And SDDM  
+-------------------------------------------------------------------------
+" 
+sudo nala install -y gtk2-engines-murrine sassc qt5-style-kvantum qt5-style-kvantum-themes
 
-# *** SDDM
-git clone https://github.com/icaho/Swish.git ~/Downloads/Swish
-yes | sudo cp -r ~/Downloads/Swish/ /usr/share/sddm/themes/
-sudo sed -i 's/Current=.*/Current=Swish/' /etc/sddm.conf.d/kde_settings.conf
+# *** SDDM"
+systemctl disable gdm
+systemctl enable sddm
+git clone https://github.com/icaho/Swish.git $DOWNLOADS/Swish
+yes | sudo cp -ri $DOWNLOADS/Swish/ /usr/share/sddm/themes/
+yes | sudo cp -ri $GITFOLDER/resources/sddm/kde_settings.conf /etc/sddm.conf.d/
 
+                
 # *** Splash Screen
-sudo tar -xzf $GITFOLDER/res/splash-screen/QuarksSplashDark.tar.gz -C $SHARE/plasma/look-and-feel/
-sudo sed -i 's/Theme=.*/Theme=QuarksSplashDark/' $DOTCONFIG/ksplashrc
+plasmapkg2 -i $GITFOLDER/resources/splash-screen/watch-dogs-splash.plasmoid
+yes | sudo cp -ri $GITFOLDER/resources/splash-screen/ksplashrc $DOTCONFIG/
 
 
 # *** Systray Latte Tweaks
-git clone https://github.com/psifidotos/plasma-systray-latte-tweaks.git ~/Downloads/plasma-systray-latte-tweaks
-cd ~/Downloads/plasma-systray-latte-tweaks/
-sudo cp -r org.kde.plasma.systemtray org.kde.plasma.private.systemtray $SHARE/plasma/plasmoids/
+git clone https://github.com/psifidotos/plasma-systray-latte-tweaks.git $DOWNLOADS/plasma-systray-latte-tweaks
+cd $DOWNLOADS/plasma-systray-latte-tweaks/
+yes | sudo cp -ri org.kde.plasma.systemtray org.kde.plasma.private.systemtray $SHARE/plasma/plasmoids/
 
-# *** Orchis KDE
-git clone https://github.com/vinceliuice/Orchis-kde.git ~/Downloads/Orchis-kde
-cd ~/Downloads/Orchis-kde/
-./install.sh
 
-# *** Orchis KDE Theme
-git clone https://github.com/vinceliuice/Orchis-theme.git ~/Downloads/Orchis-theme
-cd ~/Downloads/Orchis-theme/
-./install.sh
-
-# *** Tela Icon Theme
-git clone https://github.com/PlagaMedicum/PlagueSur-icon-theme.git ~/.local/share/icons/PlagueSur
-/usr/lib/plasma-changeicons PlagueSur
-
-# *** Vimix Cursors
-git clone https://github.com/vinceliuice/Vimix-cursors.git ~/Downloads/Vimix-cursors
-cd ~/Downloads/Vimix-cursors/
+# *** Orchis KDE"
+git clone https://github.com/vinceliuice/Orchis-kde.git $DOWNLOADS/Orchis-kde
+cd $DOWNLOADS/Orchis-kde/
 ./install.sh
 
 
-# >>>>> Install Plasmoids
+# *** Orchis KDE Theme"
+git clone https://github.com/vinceliuice/Orchis-theme.git $DOWNLOADS/Orchis-theme
+cd $DOWNLOADS/Orchis-theme/
+./install.sh
+
+
+echo -ne "# *** Sevi Icon Theme"
+git clone https://github.com/TaylanTatli/Sevi.git $DOWNLOADS/Sevi
+cd $DOWNLOADS/Sevi/
+./install.sh -black
+/usr/libexec/plasma-changeicons Sevi-black
+
+
+echo -ne "# *** Vimix Cursors"
+git clone https://github.com/vinceliuice/Vimix-cursors.git $DOWNLOADS/Vimix-cursors
+cd $DOWNLOADS/Vimix-cursors/
+./install.sh -c
+
+
+echo -ne "
+-------------------------------------------------------------------------
+                    Install Plasmoids  
+-------------------------------------------------------------------------
+" 
 # *** Plasma Customization Saver
-git clone https://github.com/paju1986/PlasmaConfSaver.git ~/Downloads/PlasmaConfSaver
-cd ~/Downloads/PlasmaConfSaver/com.pajuelo.plasmaConfSaver/
+git clone https://github.com/paju1986/PlasmaConfSaver.git $DOWNLOADS/PlasmaConfSaver
+cd $DOWNLOADS/PlasmaConfSaver/com.pajuelo.plasmaConfSaver/
 plasmapkg2 -i .
 
 # *** Latte Spacer
-git clone https://github.com/psifidotos/applet-latte-spacer.git ~/Downloads/applet-latte-spacer
-cd ~/Downloads/applet-latte-spacer/
+git clone https://github.com/psifidotos/applet-latte-spacer.git $DOWNLOADS/applet-latte-spacer
+cd $DOWNLOADS/applet-latte-spacer/
 plasmapkg2 -i .
 
 # *** Latte Separator
-git clone https://github.com/psifidotos/applet-latte-separator.git ~/Downloads/applet-latte-separator
-cd ~/Downloads/applet-latte-separator/
+git clone https://github.com/psifidotos/applet-latte-separator.git $DOWNLOADS/applet-latte-separator
+cd $DOWNLOADS/applet-latte-separator/
 plasmapkg2 -i .
 
 # *** Ditto Menu
-git clone https://github.com/adhec/dittoMenuKDE.git ~/Downloads/dittoMenuKDE
-cd ~/Downloads/dittoMenuKDE/package/
+git clone https://github.com/adhec/dittoMenuKDE.git $DOWNLOADS/dittoMenuKDE
+cd $DOWNLOADS/dittoMenuKDE/package/
 plasmapkg2 -i .
 
 # *** Shutdown Switch
-git clone https://github.com/Davide-sd/shutdown_or_switch.git ~/Downloads/shutdown_or_switch
-cd ~/Downloads/shutdown_or_switch/plasmoid/
+git clone https://github.com/Davide-sd/shutdown_or_switch.git $DOWNLOADS/shutdown_or_switch
+cd $DOWNLOADS/shutdown_or_switch/plasmoid/
 plasmapkg2 -i .
 
-## >>>>> Install Virtual Desktop Bar
-git clone https://github.com/wsdfhjxc/virtual-desktop-bar.git ~/Downloads/virtual-desktop-bar
-cd ~/Downloads/virtual-desktop-bar/
-./scripts/install-dependencies-ubuntu.sh
+
+echo -ne "
+-------------------------------------------------------------------------
+                    Install Virtual Desktop Bar 
+-------------------------------------------------------------------------
+" 
+git clone https://github.com/wsdfhjxc/virtual-desktop-bar.git $DOWNLOADS/virtual-desktop-bar
+cd $DOWNLOADS/virtual-desktop-bar/
+yes | sudo ./scripts/install-dependencies-fedora.sh
 ./scripts/install-applet.sh
 
-# >>>>> Install && Configure Latte-Dock
-yes | sudo apt install latte-dock
 
-
-# >>>>> Install And Configure ZSH
+echo -ne "
+-------------------------------------------------------------------------
+                    Install And Configure ZSH 
+-------------------------------------------------------------------------
+" 
 # *** Auto-Suggestions Plugin
-yes | apt install zsh-autosuggestions
-
-# *** Auto-Highlighting Plugin
-yes | apt install zsh-syntax-highlighting
-
-# *** Auto-Jump Plugin
-yes | apt install autojump
+sudo nala install -y autojump-zsh
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
 
 # *** Copying Configs
 touch "$HOME/.cache/zshhistory"
-cp -r $GITFOLDER/res/zsh/.zshrc ~/
-mkdir -p ~/zsh
-cp -r $GITFOLDER/res/zsh/aliasrc ~/zsh/
+yes | cp -ri $GITFOLDER/resources/zsh/.zshrc ~/
+mkdir -p ~/.zsh
+yes | cp -ri $GITFOLDER/resources/zsh/aliasrc ~/.zsh/
 
 # *** POWERLEVEL10K
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
-echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>! ~/.zshrc
-#p10k configure
+git clone https://github.com/romkatv/powerlevel10k.git ~/.zsh//powerlevel10k
 
 
-# >>>>> Konsave Plasma Saver
+echo -ne "
+-------------------------------------------------------------------------
+                    Konsave Plasma Saver 
+-------------------------------------------------------------------------
+" 
 sudo python -m pip install konsave
-konsave -i $GITFOLDER/res/konsave/Ultimate-Theme.knsv
-konsave -a Ultimate-Theme.knsv
+#konsave -i $GITFOLDER/resources/konsave/JokerWrld-Theme.knsv
+#konsave -a JokerWrld-Theme.knsv
 
 
-# >>>>> Cleaning Up The Downloads Folder
-cd ~
-rm -rf ~/Downloads/*
+echo -ne "
+-------------------------------------------------------------------------
+                    Cleaning Up The Downloads Folder 
+-------------------------------------------------------------------------
+"
+sudo chmod -R 755 $DOTCONFIG $SHARE
+sudo chown -R $USER:$USER $DOTCONFIG $SHARE
+cd
+rm -rf $DOWNLOADS/*
+sudo apt-get autoclean && sudo apt-get autoremove
+
+
+# >>>>> Enabling Services and Graphical User Interface
+chsh -s $(which zsh)
+
+reboot

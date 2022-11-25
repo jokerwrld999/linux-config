@@ -3,9 +3,10 @@
 
 # >>>>> Global Variables
 GITFOLDER=$(pwd)
+DOWNLOADS=~/Downloads
 DOTCONFIG=~/.config
 SHARE=~/.local/share
-PACKS="wget gh nano flameshot tldr google-chrome-stable discord telegram-desktop code latte-dock unzip gimp vim zip tree python-pip neofetch gparted google-chrome-stable easyeffects zsh"
+PACKS="wget gh nano flameshot remmina tldr google-chrome-stable discord telegram-desktop code latte-dock unzip gimp vim zip tree python-pip neofetch gparted easyeffects zsh"
 
 
 echo -ne "
@@ -28,8 +29,8 @@ echo -ne "
 sudo chmod -R 755 $GITFOLDER
 sudo chown -R $USER:$USER $GITFOLDER
 yes | sudo cp -ri $GITFOLDER/dotconfig/* $DOTCONFIG/
-yes | sudo cp -ri $GITFOLDER/res/wallpapers  $SHARE/
-yes | sudo cp -ri $GITFOLDER/res/fonts $SHARE/
+yes | sudo cp -ri $GITFOLDER/resources/wallpapers  $SHARE/
+yes | sudo cp -ri $GITFOLDER/resources/fonts $SHARE/
 
 # *** Reloading Font
 fc-cache -vf
@@ -37,7 +38,7 @@ fc-cache -vf
 
 echo -ne "
 -------------------------------------------------------------------------
-                    Adding Vs Code Repository  
+                    Adding Vs Code To The Repository  
 -------------------------------------------------------------------------
 "
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
@@ -77,14 +78,14 @@ echo -ne "
 -------------------------------------------------------------------------
 " 
 # *** Force Blur
-git clone https://github.com/esjeon/kwin-forceblur.git ~/Downloads/kwin-forceblur
-cd ~/Downloads/kwin-forceblur/
+git clone https://github.com/esjeon/kwin-forceblur.git $DOWNLOADS/kwin-forceblur
+cd $DOWNLOADS/kwin-forceblur/
 sudo ./pack.sh
 ./install.sh
 
 # *** Latte Windows
-git clone https://github.com/psifidotos/kwinscript-window-colors.git ~/Downloads/kwinscript-window-colors
-cd ~/Downloads/kwinscript-window-colors
+git clone https://github.com/psifidotos/kwinscript-window-colors.git $DOWNLOADS/kwinscript-window-colors
+cd $DOWNLOADS/kwinscript-window-colors
 plasmapkg2 -i .
 
 
@@ -97,44 +98,46 @@ echo -ne "
 sudo dnf install -y gtk-murrine-engine sassc kvantum
 
 # *** SDDM"
-git clone https://github.com/icaho/Swish.git ~/Downloads/Swish
-yes | sudo cp -ri ~/Downloads/Swish/ /usr/share/sddm/themes/
-yes | sudo cp -ri $GITFOLDER/res/sddm/kde_settings.conf /etc/sddm.conf.d/
+systemctl disable gdm
+systemctl enable sddm
+git clone https://github.com/icaho/Swish.git $DOWNLOADS/Swish
+yes | sudo cp -ri $DOWNLOADS/Swish/ /usr/share/sddm/themes/
+yes | sudo cp -ri $GITFOLDER/resources/sddm/kde_settings.conf /etc/sddm.conf.d/
 
                 
 # *** Splash Screen
-plasmapkg2 -i $GITFOLDER/res/splash-screen/watch-dogs-splash.plasmoid
-yes | sudo cp -ri $GITFOLDER/res/splash-screen/ksplashrc $DOTCONFIG/
+plasmapkg2 -i $GITFOLDER/resources/splash-screen/watch-dogs-splash.plasmoid
+yes | sudo cp -ri $GITFOLDER/resources/splash-screen/ksplashrc $DOTCONFIG/
 
 
 # *** Systray Latte Tweaks
-git clone https://github.com/psifidotos/plasma-systray-latte-tweaks.git ~/Downloads/plasma-systray-latte-tweaks
-cd ~/Downloads/plasma-systray-latte-tweaks/
+git clone https://github.com/psifidotos/plasma-systray-latte-tweaks.git $DOWNLOADS/plasma-systray-latte-tweaks
+cd $DOWNLOADS/plasma-systray-latte-tweaks/
 yes | sudo cp -ri org.kde.plasma.systemtray org.kde.plasma.private.systemtray $SHARE/plasma/plasmoids/
 
 
 # *** Orchis KDE"
-git clone https://github.com/vinceliuice/Orchis-kde.git ~/Downloads/Orchis-kde
-cd ~/Downloads/Orchis-kde/
+git clone https://github.com/vinceliuice/Orchis-kde.git $DOWNLOADS/Orchis-kde
+cd $DOWNLOADS/Orchis-kde/
 ./install.sh
 
 
 # *** Orchis KDE Theme"
-git clone https://github.com/vinceliuice/Orchis-theme.git ~/Downloads/Orchis-theme
-cd ~/Downloads/Orchis-theme/
+git clone https://github.com/vinceliuice/Orchis-theme.git $DOWNLOADS/Orchis-theme
+cd $DOWNLOADS/Orchis-theme/
 ./install.sh
 
 
 echo -ne "# *** Sevi Icon Theme"
-git clone https://github.com/TaylanTatli/Sevi.git ~/Downloads/Sevi
-cd ~/Downloads/Sevi/
+git clone https://github.com/TaylanTatli/Sevi.git $DOWNLOADS/Sevi
+cd $DOWNLOADS/Sevi/
 ./install.sh -black
 /usr/libexec/plasma-changeicons Sevi-black
 
 
 echo -ne "# *** Vimix Cursors"
-git clone https://github.com/vinceliuice/Vimix-cursors.git ~/Downloads/Vimix-cursors
-cd ~/Downloads/Vimix-cursors/
+git clone https://github.com/vinceliuice/Vimix-cursors.git $DOWNLOADS/Vimix-cursors
+cd $DOWNLOADS/Vimix-cursors/
 ./install.sh -c
 
 
@@ -144,28 +147,28 @@ echo -ne "
 -------------------------------------------------------------------------
 " 
 # *** Plasma Customization Saver
-git clone https://github.com/paju1986/PlasmaConfSaver.git ~/Downloads/PlasmaConfSaver
-cd ~/Downloads/PlasmaConfSaver/com.pajuelo.plasmaConfSaver/
+git clone https://github.com/paju1986/PlasmaConfSaver.git $DOWNLOADS/PlasmaConfSaver
+cd $DOWNLOADS/PlasmaConfSaver/com.pajuelo.plasmaConfSaver/
 plasmapkg2 -i .
 
 # *** Latte Spacer
-git clone https://github.com/psifidotos/applet-latte-spacer.git ~/Downloads/applet-latte-spacer
-cd ~/Downloads/applet-latte-spacer/
+git clone https://github.com/psifidotos/applet-latte-spacer.git $DOWNLOADS/applet-latte-spacer
+cd $DOWNLOADS/applet-latte-spacer/
 plasmapkg2 -i .
 
 # *** Latte Separator
-git clone https://github.com/psifidotos/applet-latte-separator.git ~/Downloads/applet-latte-separator
-cd ~/Downloads/applet-latte-separator/
+git clone https://github.com/psifidotos/applet-latte-separator.git $DOWNLOADS/applet-latte-separator
+cd $DOWNLOADS/applet-latte-separator/
 plasmapkg2 -i .
 
 # *** Ditto Menu
-git clone https://github.com/adhec/dittoMenuKDE.git ~/Downloads/dittoMenuKDE
-cd ~/Downloads/dittoMenuKDE/package/
+git clone https://github.com/adhec/dittoMenuKDE.git $DOWNLOADS/dittoMenuKDE
+cd $DOWNLOADS/dittoMenuKDE/package/
 plasmapkg2 -i .
 
 # *** Shutdown Switch
-git clone https://github.com/Davide-sd/shutdown_or_switch.git ~/Downloads/shutdown_or_switch
-cd ~/Downloads/shutdown_or_switch/plasmoid/
+git clone https://github.com/Davide-sd/shutdown_or_switch.git $DOWNLOADS/shutdown_or_switch
+cd $DOWNLOADS/shutdown_or_switch/plasmoid/
 plasmapkg2 -i .
 
 
@@ -174,8 +177,8 @@ echo -ne "
                     Install Virtual Desktop Bar 
 -------------------------------------------------------------------------
 " 
-git clone https://github.com/wsdfhjxc/virtual-desktop-bar.git ~/Downloads/virtual-desktop-bar
-cd ~/Downloads/virtual-desktop-bar/
+git clone https://github.com/wsdfhjxc/virtual-desktop-bar.git $DOWNLOADS/virtual-desktop-bar
+cd $DOWNLOADS/virtual-desktop-bar/
 yes | sudo ./scripts/install-dependencies-fedora.sh
 ./scripts/install-applet.sh
 
@@ -192,9 +195,9 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-sy
 
 # *** Copying Configs
 touch "$HOME/.cache/zshhistory"
-yes | cp -ri $GITFOLDER/res/zsh/.zshrc ~/
+yes | cp -ri $GITFOLDER/resources/zsh/.zshrc ~/
 mkdir -p ~/.zsh
-yes | cp -ri $GITFOLDER/res/zsh/aliasrc ~/.zsh/
+yes | cp -ri $GITFOLDER/resources/zsh/aliasrc ~/.zsh/
 
 # *** POWERLEVEL10K
 git clone https://github.com/romkatv/powerlevel10k.git ~/.zsh//powerlevel10k
@@ -206,7 +209,7 @@ echo -ne "
 -------------------------------------------------------------------------
 " 
 sudo python -m pip install konsave
-#konsave -i $GITFOLDER/res/konsave/JokerWrld-Theme.knsv
+#konsave -i $GITFOLDER/resources/konsave/JokerWrld-Theme.knsv
 #konsave -a JokerWrld-Theme.knsv
 
 
@@ -218,7 +221,7 @@ echo -ne "
 sudo chmod -R 755 $DOTCONFIG $SHARE
 sudo chown -R $USER:$USER $DOTCONFIG $SHARE
 cd
-rm -rf ~/Downloads/*
+rm -rf $DOWNLOADS/*
 
 
 # >>>>> Enabling Services and Graphical User Interface
