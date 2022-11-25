@@ -25,8 +25,8 @@ echo -ne "
                     Copying Backup Data  
 -------------------------------------------------------------------------
 "
-sudo chmod 777 $GITFOLDER
-sudo chown -R $(whoami): $GITFOLDER
+sudo chmod -R 755 $GITFOLDER
+sudo chown -R $USER:$USER $GITFOLDER
 yes | sudo cp -ri $GITFOLDER/dotconfig/* $DOTCONFIG/
 yes | sudo cp -ri $GITFOLDER/res/wallpapers  $SHARE/
 yes | sudo cp -ri $GITFOLDER/res/fonts $SHARE/
@@ -103,7 +103,7 @@ yes | sudo cp -ri $GITFOLDER/res/sddm/kde_settings.conf /etc/sddm.conf.d/
 
                 
 # *** Splash Screen
-sudo tar -xzf $GITFOLDER/res/splash-screen/QuarksSplashDark.tar.gz -C $SHARE/plasma/look-and-feel/
+plasmapkg2 -i $GITFOLDER/res/splash-screen/watch-dogs-splash.plasmoid
 yes | sudo cp -ri $GITFOLDER/res/splash-screen/ksplashrc $DOTCONFIG/
 
 
@@ -186,6 +186,7 @@ echo -ne "
 -------------------------------------------------------------------------
 " 
 # *** Auto-Suggestions Plugin
+sudo dnf install -y autojump-zsh
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
 
@@ -214,6 +215,8 @@ echo -ne "
                     Cleaning Up The Downloads Folder 
 -------------------------------------------------------------------------
 "
+sudo chmod -R 755 $DOTCONFIG $SHARE
+sudo chown -R $USER:$USER $DOTCONFIG $SHARE
 cd
 rm -rf ~/Downloads/*
 
