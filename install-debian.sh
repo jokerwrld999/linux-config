@@ -6,7 +6,7 @@ GITFOLDER=$(pwd)
 DOWNLOADS=~/Downloads
 DOTCONFIG=~/.config
 SHARE=~/.local/share
-PACKS="wget gh nano flameshot remmina tldr discord telegram-desktop code latte-dock unzip gimp vim zip tree python-pip neofetch gparted easyeffects zsh"
+PACKS="wget gh nano flameshot remmina tldr telegram-desktop code latte-dock unzip gimp vim zip tree python3-pip neofetch gparted easyeffects zsh"
 
 
 echo -ne "
@@ -65,12 +65,14 @@ sudo nala install -y $PACKS
 
 echo -ne "
 -------------------------------------------------------------------------
-                    Installing Snap Store  
+                    Installing Snaps  
 -------------------------------------------------------------------------
 " 
 sudo nala install -y snapd
 sudo snap install core
 sudo snap install haruna --candidate
+sudo snap install discord
+
 
 
 echo -ne "
@@ -109,6 +111,7 @@ sudo nala install -y gtk2-engines-murrine sassc qt5-style-kvantum qt5-style-kvan
 # *** SDDM"
 systemctl disable gdm
 systemctl enable sddm
+mkdir -p /etc/sddm.conf.d
 git clone https://github.com/icaho/Swish.git $DOWNLOADS/Swish
 yes | sudo cp -ri $DOWNLOADS/Swish/ /usr/share/sddm/themes/
 yes | sudo cp -ri $GITFOLDER/resources/sddm/kde_settings.conf /etc/sddm.conf.d/
@@ -122,6 +125,7 @@ yes | sudo cp -ri $GITFOLDER/resources/splash-screen/ksplashrc $DOTCONFIG/
 # *** Systray Latte Tweaks
 git clone https://github.com/psifidotos/plasma-systray-latte-tweaks.git $DOWNLOADS/plasma-systray-latte-tweaks
 cd $DOWNLOADS/plasma-systray-latte-tweaks/
+mkdir -p $SHARE/plasma/plasmoids/
 yes | sudo cp -ri org.kde.plasma.systemtray org.kde.plasma.private.systemtray $SHARE/plasma/plasmoids/
 
 
@@ -134,7 +138,7 @@ cd $DOWNLOADS/Orchis-kde/
 # *** Orchis KDE Theme"
 git clone https://github.com/vinceliuice/Orchis-theme.git $DOWNLOADS/Orchis-theme
 cd $DOWNLOADS/Orchis-theme/
-./install.sh
+./install.sh -t purple --tweaks black
 
 
 echo -ne "# *** Sevi Icon Theme"
@@ -188,7 +192,7 @@ echo -ne "
 " 
 git clone https://github.com/wsdfhjxc/virtual-desktop-bar.git $DOWNLOADS/virtual-desktop-bar
 cd $DOWNLOADS/virtual-desktop-bar/
-yes | sudo ./scripts/install-dependencies-fedora.sh
+yes | sudo ./scripts/install-dependencies-ubuntu.sh
 ./scripts/install-applet.sh
 
 
@@ -198,7 +202,7 @@ echo -ne "
 -------------------------------------------------------------------------
 " 
 # *** Auto-Suggestions Plugin
-sudo nala install -y autojump-zsh
+sudo nala install -y autojump
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
 
@@ -237,4 +241,4 @@ sudo apt-get autoclean && sudo apt-get autoremove
 # >>>>> Enabling Services and Graphical User Interface
 chsh -s $(which zsh)
 
-reboot
+sudo reboot
