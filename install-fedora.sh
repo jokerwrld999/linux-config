@@ -128,17 +128,16 @@ cd $DOWNLOADS/Orchis-theme/
 ./install.sh
 
 
-echo -ne "# *** Sevi Icon Theme"
+# *** Sevi Icon Theme
 git clone https://github.com/TaylanTatli/Sevi.git $DOWNLOADS/Sevi
 cd $DOWNLOADS/Sevi/
 ./install.sh -black
 /usr/libexec/plasma-changeicons Sevi-black
 
 
-echo -ne "# *** Vimix Cursors"
-git clone https://github.com/vinceliuice/Vimix-cursors.git $DOWNLOADS/Vimix-cursors
-cd $DOWNLOADS/Vimix-cursors/
-./install.sh -c
+# *** Bibata Cursors
+sudo dnf copr -y enable peterwu/rendezvous
+sudo dnf install -y bibata-cursor-themes
 
 
 echo -ne "

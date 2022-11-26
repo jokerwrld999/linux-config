@@ -141,17 +141,17 @@ cd $DOWNLOADS/Orchis-theme/
 ./install.sh -t purple --tweaks black
 
 
-echo -ne "# *** Sevi Icon Theme"
+# *** Sevi Icon Theme
 git clone https://github.com/TaylanTatli/Sevi.git $DOWNLOADS/Sevi
 cd $DOWNLOADS/Sevi/
 ./install.sh -black
 /usr/libexec/plasma-changeicons Sevi-black
 
 
-echo -ne "# *** Vimix Cursors"
-git clone https://github.com/vinceliuice/Vimix-cursors.git $DOWNLOADS/Vimix-cursors
-cd $DOWNLOADS/Vimix-cursors/
-./install.sh -c
+# *** Bibata Cursors
+tar -xvf $GITFOLDER/resources/cursors/Bibata.tar.gz --directory $DOWNLOADS
+mv $DOWNLOADS/Bibata-* ~/.icons/
+sudo mv Bibata-* /usr/share/icons/
 
 
 echo -ne "
