@@ -6,7 +6,7 @@ GITFOLDER=$(pwd)
 DOWNLOADS=~/Downloads
 DOTCONFIG=~/.config
 SHARE=~/.local/share
-PACKS="wget gh nano flameshot remmina tldr telegram-desktop code latte-dock unzip gimp vim zip tree python3-pip neofetch gparted easyeffects zsh"
+PACKS="gh nano flameshot remmina tldr telegram-desktop code latte-dock unzip gimp vim zip tree python3-pip neofetch gparted easyeffects zsh"
 
 
 echo -ne "
@@ -39,7 +39,7 @@ echo -ne "
 -------------------------------------------------------------------------
 "
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -P $DOWNLOADS/
-sudo apt install -y $DOWNLOADS/google-chrome-stable_current_amd64.deb
+sudo nala install -y $DOWNLOADS/google-chrome-stable_current_amd64.deb
 
 
 echo -ne "
@@ -47,7 +47,7 @@ echo -ne "
                     Adding Vs Code Repository  
 -------------------------------------------------------------------------
 "
-sudo apt-get install -y wget gpg
+sudo nala install -y wget gpg
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
 sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
 sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
@@ -149,7 +149,7 @@ cd $DOWNLOADS/Sevi/
 
 
 # *** Bibata Cursors
-tar -xvf $GITFOLDER/resources/cursors/Bibata.tar.gz --directory $DOWNLOADS
+tar -xvf $GITFOLDER/resources/cursors/Bibata-*.tar.gz --directory $DOWNLOADS
 mv $DOWNLOADS/Bibata-* ~/.icons/
 sudo mv Bibata-* /usr/share/icons/
 
@@ -221,7 +221,7 @@ echo -ne "
                     Konsave Plasma Saver 
 -------------------------------------------------------------------------
 " 
-sudo python -m pip install konsave
+python -m pip install konsave
 #konsave -i $GITFOLDER/resources/konsave/JokerWrld-Theme.knsv
 #konsave -a JokerWrld-Theme.knsv
 
