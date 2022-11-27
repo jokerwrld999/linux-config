@@ -73,7 +73,7 @@ alias sortnr='sort -n -r'
 alias unexport='unset'
 
 alias rm='rm -i'
-alias cp='cp -i'
+alias cp='cp -ri'
 alias mv='mv -i'
 alias vim='vim'
 alias vi='vim'

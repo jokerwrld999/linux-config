@@ -1,4 +1,3 @@
-
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -27,18 +26,17 @@ compinit
 _comp_options+=(globdots)               # Include hidden files.
 
 # Custom ZSH Binds
-bindkey '^ ' autosuggest-accept
+bindkey '^@' autosuggest-accept
 bindkey -e
 bindkey '^H' backward-kill-word
 bindkey '5~' kill-word
+bindkey '^[[3~' delete-char
 
 # Load aliases and shortcuts if existent.
 [ -f "$HOME/.zsh/aliasrc" ] && source "$HOME/.zsh/aliasrc"
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-export XDG_SESSION_TYPE="x11 exec dbus-run-session startplasma-x11"
+# To customize prompt, run `p10k configure`
+[[ ! -f ~/.zsh/.p10k.zsh ]] || source ~/.zsh/.p10k.zsh
 
 # Load ; should be last.
 source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme

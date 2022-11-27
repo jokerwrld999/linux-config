@@ -145,7 +145,7 @@ cd $DOWNLOADS/Orchis-theme/
 git clone https://github.com/TaylanTatli/Sevi.git $DOWNLOADS/Sevi
 cd $DOWNLOADS/Sevi/
 ./install.sh -black
-/usr/libexec/plasma-changeicons Sevi-black
+/usr/lib/x86_64-linux-gnu/libexec/plasma-changeicons Sevi-black
 
 
 # *** Bibata Cursors
