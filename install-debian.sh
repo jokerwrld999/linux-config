@@ -39,7 +39,7 @@ echo -ne "
 -------------------------------------------------------------------------
 "
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -P $DOWNLOADS/
-sudo nala install -y $DOWNLOADS/google-chrome-stable_current_amd64.deb
+sudo nala install -y $DOWNLOADS/google-chrome-stable_current_amd64.deb 1> null
 
 
 echo -ne "
