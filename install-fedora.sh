@@ -188,6 +188,7 @@ echo -ne "
 -------------------------------------------------------------------------
 " 
 # *** Auto-Suggestions Plugin
+mkdir -p ~/.zsh
 sudo dnf install -y autojump-zsh
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
@@ -195,8 +196,8 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-sy
 # *** Copying Configs
 touch "$HOME/.cache/zshhistory"
 yes | cp -ri $GITFOLDER/resources/zsh/.zshrc ~/
-mkdir -p ~/.zsh
 yes | cp -ri $GITFOLDER/resources/zsh/aliasrc ~/.zsh/
+yes | cp -ri $GITFOLDER/resources/zsh/.p10k.zsh ~/.zsh/
 
 # *** POWERLEVEL10K
 git clone https://github.com/romkatv/powerlevel10k.git ~/.zsh//powerlevel10k

@@ -39,7 +39,7 @@ echo -ne "
 -------------------------------------------------------------------------
 "
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -P $DOWNLOADS/
-sudo nala install -y $DOWNLOADS/google-chrome-stable_current_amd64.deb 1> null
+sudo nala install -y $DOWNLOADS/google-chrome-stable_current_amd64.deb 1&2> null
 
 
 echo -ne "
@@ -150,8 +150,8 @@ cd $DOWNLOADS/Sevi/
 
 # *** Bibata Cursors
 tar -xvf $GITFOLDER/resources/cursors/Bibata-*.tar.gz --directory $DOWNLOADS
-mv $DOWNLOADS/Bibata-* ~/.icons/
-sudo mv Bibata-* /usr/share/icons/
+yes | sudo cp -ri $DOWNLOADS/Bibata-* ~/.icons/
+yes | sudo cp -ri $DOWNLOADS/Bibata-* /usr/share/icons/
 
 
 echo -ne "
@@ -202,6 +202,7 @@ echo -ne "
 -------------------------------------------------------------------------
 " 
 # *** Auto-Suggestions Plugin
+mkdir -p ~/.zsh
 sudo nala install -y autojump
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
@@ -209,8 +210,8 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-sy
 # *** Copying Configs
 touch "$HOME/.cache/zshhistory"
 yes | cp -ri $GITFOLDER/resources/zsh/.zshrc ~/
-mkdir -p ~/.zsh
 yes | cp -ri $GITFOLDER/resources/zsh/aliasrc ~/.zsh/
+yes | cp -ri $GITFOLDER/resources/zsh/.p10k.zsh ~/.zsh/
 
 # *** POWERLEVEL10K
 git clone https://github.com/romkatv/powerlevel10k.git ~/.zsh//powerlevel10k
