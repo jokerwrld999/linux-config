@@ -6,12 +6,13 @@ GITFOLDER=$(pwd)
 DOWNLOADS=~/Downloads
 DOTCONFIG=~/.config
 SHARE=~/.local/share
-PACKS="wget gh nano flameshot remmina tldr google-chrome-stable discord telegram-desktop code latte-dock unzip gimp vim zip tree python-pip neofetch gparted easyeffects zsh"
+PACKS="wget gh nano flameshot remmina tldr google-chrome-stable discord telegram-desktop latte-dock unzip gimp vim zip tree python-pip neofetch gparted easyeffects zsh"
 
 
 echo -ne "
 -------------------------------------------------------------------------
-                    Updating System  
+                    Updating System 
+               Installing Essential Packages 
 -------------------------------------------------------------------------
 "
 sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
@@ -19,6 +20,7 @@ sudo dnf install -y https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-non
 sudo dnf install -y fedora-workstation-repositories
 sudo dnf config-manager --set-enabled google-chrome
 sudo dnf update -y
+sudo dnf install -y $PACKS
 
 
 echo -ne "
@@ -44,14 +46,7 @@ echo -ne "
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-sudo dnf check-update
-
-echo -ne "
--------------------------------------------------------------------------
-                    Installing Essential Packages  
--------------------------------------------------------------------------
-" 
-sudo dnf install -y $PACKS
+sudo dnf install -y code
 
 
 echo -ne "

@@ -6,16 +6,19 @@ GITFOLDER=$(pwd)
 DOWNLOADS=~/Downloads
 DOTCONFIG=~/.config
 SHARE=~/.local/share
-PACKS="gh nano flameshot remmina tldr telegram-desktop code latte-dock unzip gimp vim zip tree python3-pip neofetch gparted easyeffects zsh"
+PACKS="wget gpg gh nano flameshot remmina tldr telegram-desktop latte-dock unzip gimp vim zip tree python3-pip neofetch gparted easyeffects zsh"
 
 
 echo -ne "
 -------------------------------------------------------------------------
-                    Updating System  
+                    Updating System
+               Installing Essential Packages 
 -------------------------------------------------------------------------
 "
 sudo apt install -y nala
+sudo nala install -y apt-transport-https
 sudo nala update && sudo nala upgrade -y
+sudo nala install -y $PACKS
 
 
 echo -ne "
@@ -38,8 +41,8 @@ echo -ne "
                     Adding Chrome To The Repository  
 -------------------------------------------------------------------------
 "
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -P $DOWNLOADS/
-sudo nala install -y $DOWNLOADS/google-chrome-stable_current_amd64.deb 1&2> null
+wget -nv https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -P $DOWNLOADS/
+sudo nala install -y $DOWNLOADS/google-chrome-stable_current_amd64.deb
 
 
 echo -ne "
@@ -47,20 +50,11 @@ echo -ne "
                     Adding Vs Code Repository  
 -------------------------------------------------------------------------
 "
-sudo nala install -y wget gpg
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
 sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
 sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
 rm -f packages.microsoft.gpg
-
-echo -ne "
--------------------------------------------------------------------------
-                    Installing Essential Packages  
--------------------------------------------------------------------------
-" 
-sudo nala install -y apt-transport-https
-sudo nala update -y
-sudo nala install -y $PACKS
+sudo nala install -y code
 
 
 echo -ne "
@@ -72,7 +66,6 @@ sudo nala install -y snapd
 sudo snap install core
 sudo snap install haruna --candidate
 sudo snap install discord
-
 
 
 echo -ne "
