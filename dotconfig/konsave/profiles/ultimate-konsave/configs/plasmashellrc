@@ -1,0 +1,66 @@
+[FileDialogSize]
+DVI-D-0 VGA-0 Height 1366x768=564
+DVI-D-0 VGA-0 Width 1366x768=834
+
+[KFileDialog Settings]
+Recent Files[$e]=jeremy-bishop-uAfZBP-GtiA-unsplash.jpg,file:$HOME/Pictures/wall-secondary.jpeg,file:$HOME/Pictures/wall-main.jpg
+Recent URLs[$e]=file:$HOME/Pictures/
+detailViewIconSize=16
+
+[PlasmaViews][Panel 11]
+alignment=132
+
+[PlasmaViews][Panel 11][Defaults]
+maxLength=1616
+minLength=1616
+offset=0
+thickness=26
+
+[PlasmaViews][Panel 11][Horizontal1280]
+maxLength=1616
+minLength=1616
+thickness=26
+
+[PlasmaViews][Panel 12][Defaults]
+thickness=40
+
+[PlasmaViews][Panel 12][Horizontal1280]
+thickness=40
+
+[PlasmaViews][Panel 17]
+alignment=132
+
+[PlasmaViews][Panel 17][Defaults]
+maxLength=1616
+minLength=1616
+offset=0
+thickness=26
+
+[PlasmaViews][Panel 17][Horizontal1280]
+maxLength=1616
+minLength=1616
+thickness=26
+
+[PlasmaViews][Panel 2][Defaults]
+thickness=44
+
+[PlasmaViews][Panel 2][Horizontal1280]
+thickness=44
+
+[PlasmaViews][Panel 2][Horizontal1366]
+thickness=44
+
+[PlasmaViews][Panel 3][Defaults]
+thickness=44
+
+[PlasmaViews][Panel 3][Horizontal1280]
+thickness=44
+
+[ScreenConnectors]
+0=DVI-D-1
+1=VGA-0
+2=VGA1
+3=VGA-1
+
+[Updates]
+performed=/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/digitalclock_rename_timezonedisplay_key.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/containmentactions_middlebutton.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/systemloadviewer_systemmonitor.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/maintain_existing_desktop_icon_sizes.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/klipper_clear_config.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/no_middle_click_paste_on_panels.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/obsolete_kickoffrc.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/unlock_widgets.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/move_desktop_layout_config.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/00-start-here-2.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/digitalclock_migrate_font_settings.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/keyboardlayout_migrateiconsetting.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/keyboardlayout_remove_shortcut.js
