@@ -104,7 +104,7 @@ sudo nala install -y gtk2-engines-murrine sassc qt5-style-kvantum qt5-style-kvan
 # *** SDDM"
 systemctl disable gdm
 systemctl enable sddm
-mkdir -p /etc/sddm.conf.d
+sudo mkdir -p /etc/sddm.conf.d
 git clone https://github.com/icaho/Swish.git $DOWNLOADS/Swish
 yes | sudo cp -ri $DOWNLOADS/Swish/ /usr/share/sddm/themes/
 yes | sudo cp -ri $GITFOLDER/resources/sddm/kde_settings.conf /etc/sddm.conf.d/
