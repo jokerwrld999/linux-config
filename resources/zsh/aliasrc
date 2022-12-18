@@ -99,4 +99,5 @@ alias gp=gitpush
 alias gu=gitupdate
 alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 
-alias apt-update='sudo nala update && yes | sudo nala upgrade -y'
+alias apt-update='sudo nala update && sudo nala upgrade'
+alias apt='sudo nala'
