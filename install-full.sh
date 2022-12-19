@@ -83,7 +83,7 @@ then
    wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
    sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
    sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
-   rm -f packages.microsoft.gpg
+   suod rm -rf packages.microsoft.gpg
    sudo nala install -y code
 elif [[ -x "$(command -v dnf)" ]]
 then
@@ -152,7 +152,7 @@ fi
 
 echo -ne "
 -------------------------------------------------------------------------
-                    KWin Scripts  
+                    Installing KWin Scripts  
 -------------------------------------------------------------------------
 " 
 # **** Force Blur
@@ -173,7 +173,7 @@ plasmapkg2 -i .
 echo -ne "
 -------------------------------------------------------------------------
                     Installing Theme, Icons, Fonts, Cursors
-                       Configure Kvantum Theme And SDDM  
+                       Configuring Kvantum Theme And SDDM  
 -------------------------------------------------------------------------
 "
 if [[ -x "$(command -v nala)" ]]
@@ -230,7 +230,7 @@ yes | sudo cp -ri $DOWNLOADS/Bibata-* /usr/share/icons/
 
 echo -ne "
 -------------------------------------------------------------------------
-                    Install Plasmoids  
+                    Installing Plasmoids  
 -------------------------------------------------------------------------
 " 
 # **** Plasma Customization Saver
@@ -255,7 +255,7 @@ plasmapkg2 -i .
 
 echo -ne "
 -------------------------------------------------------------------------
-                    Install Virtual Desktop Bar 
+                    Installing Virtual Desktop Bar 
 -------------------------------------------------------------------------
 " 
 git clone https://github.com/wsdfhjxc/virtual-desktop-bar.git $DOWNLOADS/virtual-desktop-bar
@@ -277,7 +277,7 @@ fi
 
 echo -ne "
 -------------------------------------------------------------------------
-                    Install And Configure ZSH 
+                    Installing And Configuring ZSH 
 -------------------------------------------------------------------------
 " 
 # **** Auto-Suggestions Plugin
@@ -314,7 +314,7 @@ echo -ne "
 "
 sudo chmod -R 755 $DOTCONFIG $SHARE
 sudo chown -R $USER:$USER $DOTCONFIG $SHARE
-cd && rm -rf $DOWNLOADS/*
+cd && sudo rm -rf $DOWNLOADS/*
 
 if [[ -x "$(command -v apt)" ]]
 then
@@ -329,7 +329,7 @@ then
 else
    echo "FAILED TO INSTALL Chrome!"
 fi
-rm -rf ~/.cache/*
+sudo rm -rf ~/.cache/*
 
 echo -ne "
 -------------------------------------------------------------------------

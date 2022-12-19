@@ -86,14 +86,14 @@ then
 else
    echo "FAILED TO INSTALL Chrome!"
 fi
-rm -rf ~/.cache/*
+sudo rm -rf ~/.cache/*
 
 echo -ne "
 -------------------------------------------------------------------------
                     Changing Shell To ZSH 
 -------------------------------------------------------------------------
 "
-sudo chsh -s $(which zsh) $USER
+sudo chsh -s $(which $1) $USER
 
 echo -ne "
 -------------------------------------------------------------------------
