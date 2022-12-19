@@ -2,6 +2,7 @@
 
 # ****  Global Variables
 GITFOLDER=$(pwd)
+DOWNLOADS=~/Downloads
 PACKS="zsh"
 
 echo -ne "
@@ -71,7 +72,7 @@ echo -ne "
                     Cleaning Up Temporary Files 
 -------------------------------------------------------------------------
 "
-cd && rm -rf $DOWNLOADS/*
+cd && sudo rm -rf $DOWNLOADS/*
 
 if [[ -x "$(command -v apt)" ]]
 then
@@ -93,7 +94,7 @@ echo -ne "
                     Changing Shell To ZSH 
 -------------------------------------------------------------------------
 "
-sudo chsh -s $(which $1) $USER
+sudo chsh -s $(command -v zsh) $USER
 
 echo -ne "
 -------------------------------------------------------------------------
