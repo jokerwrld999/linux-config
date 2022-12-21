@@ -67,6 +67,31 @@ fc-cache -vf
 
 echo -ne "
 -------------------------------------------------------------------------
+                    Installing VPN Packages  
+-------------------------------------------------------------------------
+"
+if [[ -x "$(command -v nala)" ]]
+then
+   sudo nala install -y strongswan network-manager-strongswan libcharon-extra-plugins
+elif [[ -x "$(command -v dnf)" ]]
+then
+    # *** Installing Chrome
+   sudo dnf config-manager --set-enabled google-chrome
+   sudo dnf update -y
+   sudo dnf install -y google-chrome
+elif [[ -x "$(command -v pacman)" ]]
+then
+   # *** Installing Chrome | AUR
+   yay --noprovides --answerdiff None --answerclean None --noconfirm -S google-chrome
+else
+   echo "FAILED TO INSTALL Chrome!"
+fi
+
+
+
+
+echo -ne "
+-------------------------------------------------------------------------
                     Installing Chrome  
 -------------------------------------------------------------------------
 "
@@ -205,8 +230,8 @@ else
 fi
 
 # **** SDDM
-systemctl disable gdm
-systemctl enable sddm
+sudo systemctl disable gdm
+sudo systemctl enable sddm
 sudo mkdir -p /etc/sddm.conf.d
 git clone https://github.com/icaho/Swish.git $DOWNLOADS/Swish
 yes | sudo cp -ri $DOWNLOADS/Swish/ /usr/share/sddm/themes/
