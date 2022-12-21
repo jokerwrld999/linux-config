@@ -59,7 +59,6 @@ echo -ne "
 sudo chmod -R 755 $GITFOLDER
 sudo chown -R $USER:$USER $GITFOLDER
 yes | sudo cp -ri $GITFOLDER/dotconfig/* $DOTCONFIG/
-yes | sudo cp -ri $GITFOLDER/resources/wallpapers  $SHARE/
 yes | sudo cp -ri $GITFOLDER/resources/fonts $SHARE/
 
 # **** Reloading Font
