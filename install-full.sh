@@ -15,7 +15,7 @@ echo -ne "
 if [[ -x "$(command -v apt)" ]]
 then
    PACKS="wget gh nano flameshot remmina tldr telegram-desktop 
-   latte-dock unzip gimp vim zip tree python3-pip neofetch gparted easyeffects zsh"
+   latte-dock unzip gimp zip tree python3-pip neofetch gparted easyeffects zsh"
    
    sudo apt install -y nala
    sudo nala install -y apt-transport-https
@@ -25,7 +25,7 @@ then
 elif [[ -x "$(command -v dnf)" ]]
 then
    PACKS="wget gh nano flameshot remmina tldr telegram-desktop 
-   latte-dock unzip gimp vim zip tree python-pip neofetch gparted easyeffects zsh"
+   latte-dock unzip gimp zip tree python3-pip neofetch gparted easyeffects zsh"
    
    sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
    sudo dnf install -y https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
@@ -37,10 +37,10 @@ then
 elif [[ -x "$(command -v pacman)" ]]
 then
    PACKS="wget github-cli nano flameshot remmina tldr telegram-desktop 
-   latte-dock unzip gimp vim zip tree python3-pip neofetch gparted easyeffects zsh"
+   latte-dock unzip gimp zip tree python-pip neofetch gparted easyeffects zsh"
 
    sudo pacman -Suy --noconfirm
-   sudo pacman --answerdiff None --answerclean None --noconfirm -S $PACKS
+   sudo pacman --noconfirm -S $PACKS
    
    # *** Installing Yay AUR Helper
    sudo git clone https://aur.archlinux.org/yay-git.git /opt/yay-git
@@ -141,9 +141,9 @@ echo -ne "
 -------------------------------------------------------------------------
 "
 sudo ln -s /var/lib/snapd/snap /snap
-snap install core
-snap install haruna --candidate
-snap install discord
+sudo snap install core
+sudo snap install haruna --candidate
+sudo snap install discord
 
 echo -ne "
 -------------------------------------------------------------------------
@@ -158,9 +158,9 @@ then
    sudo dnf group install -y "KDE Plasma Workspaces"
 elif [[ -x "$(command -v pacman)" ]]
 then
-   sudo pacman --answerdiff None --answerclean None --noconfirm -S  xorg plasma plasma-wayland-session kde-applications
-   systemctl enable sddm
-   systemctl enable NetworkManager
+   sudo pacman --noconfirm -S  xorg plasma plasma-wayland-session kde-applications
+   sudo systemctl enable sddm
+   sudo systemctl enable NetworkManager
 else
    echo "FAILED TO INSTALL KDE!"
 fi
@@ -199,7 +199,7 @@ then
    sudo dnf install -y gtk-murrine-engine sassc kvantum
 elif [[ -x "$(command -v pacman)" ]]
 then
-   sudo pacman --answerdiff None --answerclean None --noconfirm -S  gtk-engine-murrine sassc kvantum-qt5
+   sudo pacman --noconfirm -S  gtk-engine-murrine sassc kvantum-qt5
 else
    echo "FAILED TO INSTALL Theme Packages!"
 fi
@@ -359,3 +359,4 @@ echo -ne "
 -------------------------------------------------------------------------
 "
 sudo reboot
+'
