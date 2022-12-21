@@ -5,7 +5,6 @@ GITFOLDER=$(pwd)
 DOWNLOADS=~/Downloads
 DOTCONFIG=~/.config
 SHARE=~/.local/share
-PACKS="wget gpg gh nano flameshot remmina tldr telegram-desktop latte-dock unzip gimp vim zip tree python3-pip neofetch gparted easyeffects zsh"
 
 echo -ne "
 -------------------------------------------------------------------------
@@ -15,12 +14,19 @@ echo -ne "
 "
 if [[ -x "$(command -v apt)" ]]
 then
+   PACKS="wget gh nano flameshot remmina tldr telegram-desktop 
+   latte-dock unzip gimp vim zip tree python3-pip neofetch gparted easyeffects zsh"
+   
    sudo apt install -y nala
    sudo nala install -y apt-transport-https
    sudo nala update && sudo nala upgrade -y
+   
    sudo nala install -y $PACKS
 elif [[ -x "$(command -v dnf)" ]]
 then
+   PACKS="wget gh nano flameshot remmina tldr telegram-desktop 
+   latte-dock unzip gimp vim zip tree python-pip neofetch gparted easyeffects zsh"
+   
    sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
    sudo dnf install -y https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
    sudo dnf install -y fedora-workstation-repositories
@@ -30,8 +36,11 @@ then
    sudo dnf install -y $PACKS
 elif [[ -x "$(command -v pacman)" ]]
 then
-   sudo pacman -Syyu --noconfirm
-   sudo pacman -S --noconfirm --needed base-devel $PACKS
+   PACKS="wget github-cli nano flameshot remmina tldr telegram-desktop 
+   latte-dock unzip gimp vim zip tree python3-pip neofetch gparted easyeffects zsh"
+
+   sudo pacman -Suy --noconfirm
+   sudo pacman --answerdiff None --answerclean None --noconfirm -S $PACKS
    
    # *** Installing Yay AUR Helper
    sudo git clone https://aur.archlinux.org/yay-git.git /opt/yay-git
@@ -65,10 +74,16 @@ if [[ -x "$(command -v nala)" ]]
 then
    wget -nv https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -P $DOWNLOADS/
    sudo nala install -y $DOWNLOADS/google-chrome-stable_current_amd64.deb
+elif [[ -x "$(command -v dnf)" ]]
+then
+    # *** Installing Chrome
+   sudo dnf config-manager --set-enabled google-chrome
+   sudo dnf update -y
+   sudo dnf install -y google-chrome
 elif [[ -x "$(command -v yay)" ]]
 then
    # *** Installing Chrome | AUR
-   yes | yay -S google-chrome
+   yay --noprovides --answerdiff None --answerclean None --noconfirm -S google-chrome
 else
    echo "FAILED TO INSTALL Chrome!"
 fi
@@ -94,7 +109,7 @@ then
 elif [[ -x "$(command -v yay)" ]]
 then
    # *** Installing VS Code | AUR
-   yes | yay -S visual-studio-code-bin
+   yay --noprovides --answerdiff None --answerclean None --noconfirm -S visual-studio-code-bin
 else
    echo "FAILED TO INSTALL Code!"
 fi
@@ -114,7 +129,7 @@ then
 elif [[ -x "$(command -v yay)" ]]
 then
    # *** Installing Snap | AUR
-   yes | yay -S snapd
+   yay --noprovides --answerdiff None --answerclean None --noconfirm -S snapd
    sudo systemctl enable --now snapd.socket
 else
    echo "FAILED TO INSTALL Snap Store!"
@@ -126,9 +141,9 @@ echo -ne "
 -------------------------------------------------------------------------
 "
 sudo ln -s /var/lib/snapd/snap /snap
-sudo snap install core
-sudo snap install haruna --candidate
-sudo snap install discord
+snap install core
+snap install haruna --candidate
+snap install discord
 
 echo -ne "
 -------------------------------------------------------------------------
@@ -143,7 +158,7 @@ then
    sudo dnf group install -y "KDE Plasma Workspaces"
 elif [[ -x "$(command -v pacman)" ]]
 then
-   sudo pacman -S xorg plasma plasma-wayland-session kde-applications
+   sudo pacman --answerdiff None --answerclean None --noconfirm -S  xorg plasma plasma-wayland-session kde-applications
    systemctl enable sddm
    systemctl enable NetworkManager
 else
@@ -184,7 +199,7 @@ then
    sudo dnf install -y gtk-murrine-engine sassc kvantum
 elif [[ -x "$(command -v pacman)" ]]
 then
-   sudo pacman -S --noconfirm gtk-engine-murrine sassc kvantum-qt5
+   sudo pacman --answerdiff None --answerclean None --noconfirm -S  gtk-engine-murrine sassc kvantum-qt5
 else
    echo "FAILED TO INSTALL Theme Packages!"
 fi
@@ -210,12 +225,12 @@ yes | sudo cp -ri org.kde.plasma.systemtray org.kde.plasma.private.systemtray $S
 # **** Orchis KDE
 git clone https://github.com/vinceliuice/Orchis-kde.git $DOWNLOADS/Orchis-kde
 cd $DOWNLOADS/Orchis-kde/
-./install.sh
+sudo ./install.sh
 
 # **** Orchis KDE Theme
 git clone https://github.com/vinceliuice/Orchis-theme.git $DOWNLOADS/Orchis-theme
 cd $DOWNLOADS/Orchis-theme/
-./install.sh -t purple --tweaks black
+sudo ./install.sh -t purple --tweaks black
 
 # **** Sevi Icon Theme
 git clone https://github.com/TaylanTatli/Sevi.git $DOWNLOADS/Sevi
@@ -296,7 +311,7 @@ then
 elif [[ -x "$(command -v yay)" ]]
 then
    # *** Auto-Jump Plugin | AUR
-   yes | yay -S autojump
+   yay --noprovides --answerdiff None --answerclean None --noconfirm -S autojump
 else
    echo "FAILED TO INSTALL ZSH Packages!"
 fi
@@ -329,7 +344,7 @@ then
 else
    echo "FAILED TO INSTALL Chrome!"
 fi
-sudo rm -rf ~/.cache/*
+yes | sudo rm -rf ~/.cache/*
 
 echo -ne "
 -------------------------------------------------------------------------
@@ -343,4 +358,4 @@ echo -ne "
                     Rebooting 
 -------------------------------------------------------------------------
 "
-#sudo reboot
+sudo reboot
