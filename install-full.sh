@@ -372,6 +372,7 @@ echo -ne "
                     Installing Grub Theme 
 -------------------------------------------------------------------------
 "
+sleep 5
 sudo $GITFOLDER/resources/grub-themes/install.sh
 
 
