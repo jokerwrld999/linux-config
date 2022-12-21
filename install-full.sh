@@ -81,14 +81,10 @@ then
    sudo dnf install -y google-chrome
 elif [[ -x "$(command -v pacman)" ]]
 then
-   # *** Installing Chrome | AUR
-   yay --noprovides --answerdiff None --answerclean None --noconfirm -S google-chrome
+   sudo pacman --noconfirm -S strongswan networkmanager-strongswan
 else
    echo "FAILED TO INSTALL Chrome!"
 fi
-
-
-
 
 echo -ne "
 -------------------------------------------------------------------------
@@ -167,7 +163,6 @@ echo -ne "
 "
 sudo ln -s /var/lib/snapd/snap /snap
 sudo snap install core
-sudo snap install haruna --candidate
 sudo snap install discord
 
 echo -ne "
@@ -261,7 +256,8 @@ sudo ./install.sh -t purple --tweaks black
 git clone https://github.com/TaylanTatli/Sevi.git $DOWNLOADS/Sevi
 cd $DOWNLOADS/Sevi/
 ./install.sh -black
-/usr/lib/x86_64-linux-gnu/libexec/plasma-changeicons Sevi-black
+changeicons=$(find /usr/lib/ -name "plasma-changeicons")
+$changeicons Sevi-black
 
 # **** Bibata Cursors
 tar -xvf $GITFOLDER/resources/cursors/Bibata-*.tar.gz --directory $DOWNLOADS
@@ -364,12 +360,12 @@ then
    sudo dnf clean all
 elif [[ -x "$(command -v pacman)" ]]
 then
-   sudo pacman -Scc
-   sudo pacman -Rns $(pacman -Qtdq)
+   sudo pacman -Scc --noconfirm
+   sudo pacman -Rns --noconfirm $(pacman -Qtdq)
 else
    echo "FAILED TO INSTALL Chrome!"
 fi
-yes | sudo rm -rf ~/.cache/*
+sudo rm -rf ~/.cache/*
 
 echo -ne "
 -------------------------------------------------------------------------
@@ -384,4 +380,3 @@ echo -ne "
 -------------------------------------------------------------------------
 "
 sudo reboot
-'
