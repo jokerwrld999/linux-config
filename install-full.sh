@@ -230,6 +230,7 @@ sudo mkdir -p /etc/sddm.conf.d
 git clone https://github.com/icaho/Swish.git $DOWNLOADS/Swish
 yes | sudo cp -ri $DOWNLOADS/Swish/ /usr/share/sddm/themes/
 yes | sudo cp -ri $GITFOLDER/resources/sddm/kde_settings.conf /etc/sddm.conf.d/
+sudo chown -R sddm:sddm /var/lib/sddm/.config  
             
 # **** Splash Screen
 plasmapkg2 -i $GITFOLDER/resources/splash-screen/watch-dogs-splash.plasmoid
@@ -368,6 +369,14 @@ sudo rm -rf ~/.cache/*
 
 echo -ne "
 -------------------------------------------------------------------------
+                    Installing Grub Theme 
+-------------------------------------------------------------------------
+"
+sudo $GITFOLDER/resources/grub-themes/install.sh
+
+
+echo -ne "
+-------------------------------------------------------------------------
                     Changing Shell To ZSH 
 -------------------------------------------------------------------------
 "
@@ -378,4 +387,4 @@ echo -ne "
                     Rebooting 
 -------------------------------------------------------------------------
 "
-sudo reboot
+#sudo reboot
