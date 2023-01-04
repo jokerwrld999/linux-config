@@ -157,6 +157,22 @@ fi
 
 echo -ne "
 -------------------------------------------------------------------------
+                    Installing Quickemu
+-------------------------------------------------------------------------
+"
+if [[ -x "$(command -v nala)" ]]
+then
+   sudo nala install -y snapd
+elif [[ -x "$(command -v dnf)" ]]
+then
+   sudo dnf install snapd
+   sudo ln -s /var/lib/snapd/snap /snap
+else
+   echo "FAILED TO INSTALL Snap Store!"
+fi
+
+echo -ne "
+-------------------------------------------------------------------------
                     Installing Snap Packages
 -------------------------------------------------------------------------
 "
