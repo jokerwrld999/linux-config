@@ -13,10 +13,9 @@ echo -ne "
 "
 if [[ -x "$(command -v apt)" ]]
 then
-   sudo apt install -y nala
-   sudo nala install -y apt-transport-https
-   sudo nala update && sudo nala upgrade -y
-   sudo nala install -y $PACKS
+   sudo apt install -y apt-transport-https
+   sudo apt update && sudo apt upgrade -y
+   sudo apt install -y $PACKS
 elif [[ -x "$(command -v dnf)" ]]
 then
    sudo dnf update -y
@@ -47,9 +46,9 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-sy
 # **** POWERLEVEL10K
 git clone https://github.com/romkatv/powerlevel10k.git ~/.zsh//powerlevel10k
 
-if [[ -x "$(command -v nala)" ]]
+if [[ -x "$(command -v apt)" ]]
 then
-   sudo nala install -y autojump
+   sudo apt install -y autojump
 elif [[ -x "$(command -v dnf)" ]]
 then
    sudo dnf install -y autojump
